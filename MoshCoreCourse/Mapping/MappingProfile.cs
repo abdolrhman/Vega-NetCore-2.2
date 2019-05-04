@@ -38,28 +38,28 @@ namespace MoshCoreCourse.Mapping
                 .AfterMap((vr, v) =>
                 {
                     // remove unselect features
-                    //var removedFeatures = new List<VehicleFeature>();
-                    //foreach (var f in v.Features)
-                    //{
-                    //    if (!vr.Features.Contains(f.FeatureId))
-                    //    {
-                    //        removedFeatures.Add(f);
-                    //    }
-                    //}
+                    var removedFeatures = new List<VehicleFeature>();
+                    foreach (var f in v.Features)
+                    {
+                        if (!vr.Features.Contains(f.FeatureId))
+                        {
+                            removedFeatures.Add(f);
+                        }
+                    }
 
-                    var removedFeatures = v.Features.Where(f => !vr.Features.Contains(f.FeatureId));
+                    //var removedFeatures = v.Features.Where(f => !vr.Features.Contains(f.FeatureId));
 
                     foreach (var f in removedFeatures)
                         v.Features.Remove(f);
-                    //foreach (var id in vr.Features)
-                    //{
-                    //    if (!v.Features.Any(f => f.FeatureId == id))
-                    //        v.Features.Add(new VehicleFeature {FeatureId = id});
-                    //}
+                    foreach (var id in vr.Features)
+                    {
+                        if (!v.Features.Any(f => f.FeatureId == id))
+                            v.Features.Add(new VehicleFeature { FeatureId = id });
+                    }
 
-                    var addedFeatures = vr.Features.Where(id => !v.Features.Any(f => f.FeatureId == id)).Select(id => new VehicleFeature {FeatureId = id});
-                    foreach ( var f in addedFeatures)
-                        v.Features.Add(f);
+                    //var addedFeatures = vr.Features.Where(id => !v.Features.Any(f => f.FeatureId == id)).Select(id => new VehicleFeature {FeatureId = id});
+                    //foreach ( var f in addedFeatures)
+                    //    v.Features.Add(f);
 
                 });
         }
